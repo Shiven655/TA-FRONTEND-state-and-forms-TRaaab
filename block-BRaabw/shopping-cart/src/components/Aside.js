@@ -1,16 +1,15 @@
 import React from 'react';
 import data from './data.json';
 import Products from './Products';
-
 class Aside extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       sizes: '',
       select: 'selected',
     };
   }
-  handlClick = (size) => {
+  handleClick = (size) => {
     this.setState({
       size: size,
     });
@@ -21,10 +20,13 @@ class Aside extends React.Component {
       acc = acc.concat(cv.availableSizes);
       return acc;
     }, []);
+
     let unique = [...new Set(sizes)];
-    let item = [...products].filter((product) =>
+    let items;
+    items = [...products].filter((product) =>
       product.availableSizes.includes(this.state.size)
     );
+
     return (
       <>
         <div className="flex">
@@ -38,12 +40,13 @@ class Aside extends React.Component {
                   }
                   onClick={() => this.handleClick(size)}
                 >
-                  size
+                  {size}
                 </p>
               ))}
             </div>
           </aside>
-          <products item={item} />
+
+          <Products item={items} />
         </div>
       </>
     );
